@@ -75,7 +75,7 @@ def get_translations(lang):
     }
     return texts[lang]
 
-# ---------- CUSTOM CSS FOR ANIMATED, COLORFUL AD ----------
+# ---------- CUSTOM CSS (toggle button visible, sidebar functional) ----------
 st.markdown(
     """
     <style>
@@ -85,10 +85,8 @@ st.markdown(
         background-attachment: fixed;
         overflow-x: hidden;
     }
-    /* Hide default Streamlit elements */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
+    /* Do NOT hide the header or MainMenu – keep the toggle button visible */
+    /* Removed: #MainMenu {visibility: hidden;} and header {visibility: hidden;} */
     
     /* Main container */
     .ad-container {
@@ -213,7 +211,7 @@ st.markdown(
         background-color: #ff6b6b;
         transform: scale(1.05);
     }
-    /* Sidebar language selector styling */
+    /* Sidebar styling – keep visible and functional */
     [data-testid="stSidebar"] {
         background: rgba(0,0,0,0.6);
         backdrop-filter: blur(10px);
@@ -221,6 +219,12 @@ st.markdown(
     }
     [data-testid="stSidebar"] * {
         color: white !important;
+    }
+    /* Ensure the toggle button (hamburger) is visible */
+    button[kind="header"] {
+        color: #ffd966 !important;
+        background: rgba(0,0,0,0.5) !important;
+        border-radius: 50% !important;
     }
     /* Responsive */
     @media (max-width: 768px) {
@@ -310,4 +314,3 @@ st.markdown(
 
 # ---------- FOOTER NOTE ----------
 st.caption(t['footer_note'])
-
