@@ -1,12 +1,79 @@
 import streamlit as st
+import random
 
 # ---------- PAGE CONFIG ----------
 st.set_page_config(
     page_title="GlobalInternet.py - Build Your Website",
     page_icon="🌐",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
+
+# ---------- TRANSLATIONS ----------
+def get_translations(lang):
+    texts = {
+        "en": {
+            "company_name": "🌐 GlobalInternet.py",
+            "tagline": "Build any website you wish",
+            "description1": "Make your business work online and be seen worldwide.",
+            "description2": "We create custom websites, web apps, and digital solutions – fully tailored to your needs.",
+            "highlight": "👉 You dream it, we code it. 👈",
+            "contact_name": "Gesner Deslandes – Founder & Lead Engineer",
+            "phone": "📞 +509 4738-5663",
+            "email": "✉️ deslandes78@gmail.com",
+            "website": "🌐 globalinternetsitepy-abh7v6tnmskxxnuplrdcgk.streamlit.app/",
+            "music_btn": "🎵 Add your music track here (click to simulate)",
+            "footer_note": "🎬 For your video recording, play your own music in the background. This ad is ready to be captured.",
+            "sidebar_title": "🌐 Language",
+            "sidebar_instruction": "Select your language"
+        },
+        "fr": {
+            "company_name": "🌐 GlobalInternet.py",
+            "tagline": "Créez n'importe quel site web",
+            "description1": "Faites fonctionner votre entreprise en ligne et soyez vu dans le monde entier.",
+            "description2": "Nous créons des sites web personnalisés, des applications web et des solutions numériques – entièrement adaptés à vos besoins.",
+            "highlight": "👉 Vous rêvez, nous codons. 👈",
+            "contact_name": "Gesner Deslandes – Fondateur et ingénieur principal",
+            "phone": "📞 +509 4738-5663",
+            "email": "✉️ deslandes78@gmail.com",
+            "website": "🌐 globalinternetsitepy-abh7v6tnmskxxnuplrdcgk.streamlit.app/",
+            "music_btn": "🎵 Ajoutez votre piste musicale ici (cliquez pour simuler)",
+            "footer_note": "🎬 Pour votre enregistrement vidéo, jouez votre propre musique en arrière‑plan. Cette publicité est prête à être capturée.",
+            "sidebar_title": "🌐 Langue",
+            "sidebar_instruction": "Choisissez votre langue"
+        },
+        "es": {
+            "company_name": "🌐 GlobalInternet.py",
+            "tagline": "Construye cualquier sitio web que desees",
+            "description1": "Haga que su negocio funcione en línea y sea visto en todo el mundo.",
+            "description2": "Creamos sitios web personalizados, aplicaciones web y soluciones digitales – totalmente adaptados a sus necesidades.",
+            "highlight": "👉 Usted lo sueña, nosotros lo codificamos. 👈",
+            "contact_name": "Gesner Deslandes – Fundador e ingeniero principal",
+            "phone": "📞 +509 4738-5663",
+            "email": "✉️ deslandes78@gmail.com",
+            "website": "🌐 globalinternetsitepy-abh7v6tnmskxxnuplrdcgk.streamlit.app/",
+            "music_btn": "🎵 Agrega tu pista de música aquí (haz clic para simular)",
+            "footer_note": "🎬 Para tu grabación de video, reproduce tu propia música de fondo. Este anuncio está listo para ser capturado.",
+            "sidebar_title": "🌐 Idioma",
+            "sidebar_instruction": "Seleccione su idioma"
+        },
+        "ht": {
+            "company_name": "🌐 GlobalInternet.py",
+            "tagline": "Konstwi nenpòt sit wèb ou vle",
+            "description1": "Fè biznis ou travay sou entènèt epi yo wè ou atravè lemond.",
+            "description2": "Nou kreye sit wèb pèsonalize, aplikasyon entènèt, ak solisyon dijital – konplètman adapte ak bezwen ou yo.",
+            "highlight": "👉 Ou reve l, nou kode l. 👈",
+            "contact_name": "Gesner Deslandes – Fondatè ak enjenyè prensipal",
+            "phone": "📞 +509 4738-5663",
+            "email": "✉️ deslandes78@gmail.com",
+            "website": "🌐 globalinternetsitepy-abh7v6tnmskxxnuplrdcgk.streamlit.app/",
+            "music_btn": "🎵 Ajoute mizik ou la (klike pou simulation)",
+            "footer_note": "🎬 Pou anrejistreman videyo w, jwe pwòp mizik ou nan fon. Piblisite sa a pare pou kaptire.",
+            "sidebar_title": "🌐 Lang",
+            "sidebar_instruction": "Chwazi lang ou"
+        }
+    }
+    return texts[lang]
 
 # ---------- CUSTOM CSS FOR ANIMATED, COLORFUL AD ----------
 st.markdown(
@@ -146,6 +213,15 @@ st.markdown(
         background-color: #ff6b6b;
         transform: scale(1.05);
     }
+    /* Sidebar language selector styling */
+    [data-testid="stSidebar"] {
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(10px);
+        border-right: 2px solid #ffd966;
+    }
+    [data-testid="stSidebar"] * {
+        color: white !important;
+    }
     /* Responsive */
     @media (max-width: 768px) {
         .company-name { font-size: 2.5rem; }
@@ -158,10 +234,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---------- HTML WITH ANIMATED STARS AND BALLOONS ----------
-# Generate random positions for stars and balloons
-import random
-
+# ---------- ANIMATED STARS AND BALLOONS (random positions) ----------
 stars_html = ""
 for i in range(30):
     left = random.randint(0, 100)
@@ -182,33 +255,45 @@ for i in range(20):
 
 st.markdown(f'{stars_html}{balloons_html}', unsafe_allow_html=True)
 
-# ---------- MAIN CONTENT ----------
+# ---------- LANGUAGE SELECTION (SIDEBAR) ----------
+st.sidebar.markdown("## 🌐 Language / Langue")
+lang_choice = st.sidebar.selectbox(
+    "Select your language",
+    ["English", "Français", "Español", "Kreyòl Ayisyen"]
+)
+lang_map = {
+    "English": "en",
+    "Français": "fr",
+    "Español": "es",
+    "Kreyòl Ayisyen": "ht"
+}
+t = get_translations(lang_map[lang_choice])
+
+# ---------- MAIN CONTENT (USING TRANSLATIONS) ----------
 st.markdown(
-    """
+    f"""
     <div class="ad-container">
         <div class="offer-card">
-            <div class="company-name">🌐 GlobalInternet.py</div>
-            <div class="tagline">Build any website you wish</div>
+            <div class="company-name">{t['company_name']}</div>
+            <div class="tagline">{t['tagline']}</div>
             <div class="description">
-                Make your business work online and be seen <strong>worldwide</strong>.<br>
-                We create custom websites, web apps, and digital solutions –<br>
-                fully tailored to your needs.
+                {t['description1']}<br>
+                {t['description2']}
             </div>
-            <div class="highlight">👉 You dream it, we code it. 👈</div>
+            <div class="highlight">{t['highlight']}</div>
             <div class="contact-info">
-                <strong>Gesner Deslandes</strong> – Founder & Lead Engineer<br>
-                📞 <a href="tel:+50947385663">+509 4738-5663</a> &nbsp;|&nbsp;
-                ✉️ <a href="mailto:deslandes78@gmail.com">deslandes78@gmail.com</a><br>
-                🌐 <a href="https://globalinternetsitepy-abh7v6tnmskxxnuplrdcgk.streamlit.app/" target="_blank">globalinternetsitepy-abh7v6tnmskxxnuplrdcgk.streamlit.app/</a>
+                <strong>{t['contact_name']}</strong><br>
+                {t['phone']} &nbsp;|&nbsp; {t['email']}<br>
+                <a href="{t['website']}" target="_blank">{t['website']}</a>
             </div>
         </div>
-        <button class="music-btn" id="musicPlaceholder">🎵 Add your music track here (click to simulate)</button>
+        <button class="music-btn" id="musicPlaceholder">{t['music_btn']}</button>
     </div>
     """,
     unsafe_allow_html=True
 )
 
-# ---------- SIMPLE MUSIC PLACEHOLDER (can be replaced with actual audio later) ----------
+# ---------- SIMPLE MUSIC PLACEHOLDER ----------
 st.markdown(
     """
     <script>
@@ -223,5 +308,5 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Optional: a note that music will be added during video recording
-st.caption("🎬 For your video recording, play your own music in the background. This ad is ready to be captured.")
+# ---------- FOOTER NOTE ----------
+st.caption(t['footer_note'])
